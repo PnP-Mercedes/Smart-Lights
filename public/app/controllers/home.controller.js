@@ -1,17 +1,6 @@
 var app = angular.module("smartlight", []);
 
 app.controller('homeController', function($scope, $http) {
-    console.log("HELLO WORLD!");
-    console.log(web3);
-
-    $scope.available = typeof web3 !== 'undefined';
-    if ($scope.available) {
-        web3 = new Web3(web3.currentProvider);
-        $scope.getContract();
-    } else {
-        console.log('You should consider installing MetaMask or using a Web3 browser!');
-    }
-
     $scope.getNetworkName = function() {
         if ($scope.networkId == 1) return 'Main metwork';
         else if ($scope.networkId == 2) return 'deprecated Morden test network';
@@ -25,6 +14,13 @@ app.controller('homeController', function($scope, $http) {
         $http.get('/contract', {}).then(function(contract) {
             if (contract) {
                 $scope.contract = web3.eth.contract(contract.data.abi).at(contract.data.addr);
+                $scope.contract.getLights(function(error, result) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        $scope.lightList = result;
+                    }
+                });
             } else {
                 $scope.available = false;
             }
@@ -33,4 +29,12 @@ app.controller('homeController', function($scope, $http) {
             console.log(error);
         });
     };
+
+    $scope.available = typeof web3 !== 'undefined';
+    if ($scope.available) {
+        web3 = new Web3(web3.currentProvider);
+        $scope.getContract();
+    } else {
+        console.log('You should consider installing MetaMask or using a Web3 browser!');
+    }
 });

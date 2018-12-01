@@ -2,6 +2,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+require('dotenv').config();
 
 var contract = {
     abi: undefined,
@@ -26,6 +27,12 @@ app.use(express.static(__dirname + "/public"));
 
 app.get('/contract', function(req, res) {
     return res.json(contract);
+});
+
+app.get('/getCode', function(req, res) {
+    console.log(req.body);
+    console.log(req.body.code);
+    return "YOHO";
 });
 
 var server = app.listen(process.env.PORT | 9000, function() {
