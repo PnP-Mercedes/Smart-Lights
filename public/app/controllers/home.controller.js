@@ -30,6 +30,11 @@ app.controller('homeController', function($scope, $http) {
         });
     };
 
+    $scope.bidLight = function() {
+        console.log($scope.mode);
+    };
+
+    $scope.mode = "0";
     $scope.available = typeof web3 !== 'undefined';
     if ($scope.available) {
         web3 = new Web3(web3.currentProvider);

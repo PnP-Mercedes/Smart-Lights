@@ -8,11 +8,27 @@
     <meta name="description" content="Blockchain based Traffic Demand Management solution. ">
     <meta name="keywords" content="Blockchain,DApp,Mobility">
     <meta name="author" content="enescnkr">
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 </head>
 
 <body ng-controller="homeController">
-    Hello !
-    {{ lightList }}
+
+    <div class="container">
+        <div class="form-group col-md-offset-1 col-md-8 row">
+            <label for="mode" class="col-form-label col-md-2">Mode:</label>
+            <div class="col-md-10">
+                <select id="mode" ng-model="mode" class="form-control">
+                    <option value="0">Money is Better Mode (1)</option>
+                    <option value="1">Minimum Urgency Mode (2)</option>
+                    <option value="2">Rather not Wait Mode (3)</option>
+                    <option value="3">Willing to pay Mode (4)</option>
+                    <option value="4">Pay to Pass Mode (5)</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary col-md-2" ng-click="bidLight()">Bid to Traffic Light</button>
+    </div>
 
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
