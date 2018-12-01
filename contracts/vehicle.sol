@@ -1,22 +1,36 @@
 pragma solidity >=0.4.22 <0.6.0;
+
 contract Vehicle {
-    string Location;
-    bool Urgency;
-    
-    function setLocation (string _location) public {
-        Location = _location
-    } 
 
-    function setUrgenct (bool _urgency) public {
-        Urgency = _urgency
+    struct Settings {
+        uint8 mode;
+        bool urgency;
     }
-    
-    function getNextLight() (address _nearestLight) {
-            
-        
-    }
-    
-    function bidNearestLight() {
 
+    address private owner;
+    address private government;
+    mapping (address => Settings) private settingList;
+
+    constructor (address _governmentAddr) public {
+        owner = msg.sender;
+        government = _governmentAddr;
     }
+    
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+
+    function registerVehicle() public {
+        settingList[msg.sender] = Settings({
+            mode: 0,
+            urgency: false
+        });
+    }
+    
+    function setVehicleSettings(uint8 _mode, bool _urgency) public {
+        settingList[msg.sender].mode = _mode;
+        settingList[msg.sender].urgency = _urgency;
+    }
+
 }
