@@ -8,9 +8,7 @@ contract TrafficLight {
 
     struct Bid {
         address bidder;
-        uint8 Mode;
-        bool Urgency;
-    
+        uint8 mode;
     }
 
     address private owner;
@@ -25,5 +23,12 @@ contract TrafficLight {
             latitude: _latitude,
             longitude: _longitude
         });
+    }
+
+    function bid(uint8 _mode) public payable {
+        incomingBids.push(Bid({
+            bidder: msg.sender,
+            mode: _mode
+        }));
     }
 }

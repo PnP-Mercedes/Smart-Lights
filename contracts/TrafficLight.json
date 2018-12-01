@@ -1,0 +1,88 @@
+{
+    "abi": [
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "status",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_mode",
+                    "type": "uint8"
+                }
+            ],
+            "name": "bid",
+            "outputs": [],
+            "payable": true,
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "location",
+            "outputs": [
+                {
+                    "name": "latitude",
+                    "type": "uint32"
+                },
+                {
+                    "name": "longitude",
+                    "type": "uint32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "incomingBids",
+            "outputs": [
+                {
+                    "name": "bidder",
+                    "type": "address"
+                },
+                {
+                    "name": "mode",
+                    "type": "uint8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "name": "_latitude",
+                    "type": "uint32"
+                },
+                {
+                    "name": "_longitude",
+                    "type": "uint32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        }
+    ]
+}
