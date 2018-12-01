@@ -1,7 +1,6 @@
 pragma solidity >=0.4.22 <0.6.0;
 
 contract TrafficLight {
-
     struct Location {
         uint32 latitude;
         uint32 longitude;

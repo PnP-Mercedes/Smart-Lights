@@ -1,0 +1,29 @@
+{
+    "name": "smart-lights",
+    "version": "1.0.0",
+    "description": "Blockchain based Traffic Demand Management solution",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PnP-Mercedes/Smart-Lights.git"
+    },
+    "keywords": [
+        "blockchain",
+        "mobility",
+        "node"
+    ],
+    "author": "pnp",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/PnP-Mercedes/Smart-Lights/issues"
+    },
+    "homepage": "https://github.com/PnP-Mercedes/Smart-Lights#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "cookie-parser": "^1.4.3",
+        "express": "^4.16.4"
+    }
+}
