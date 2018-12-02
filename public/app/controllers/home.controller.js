@@ -112,13 +112,13 @@ app.controller('homeController', function($scope, $http, $interval) {
         getLocation(getNearestLight);
     };
 
-    modeAmounts = {
+    var modeAmounts = {
         "0": 0,
         "1": 0.01,
         "2": 0.03,
         "3": 0.09,
         "4": 0.65
-    }
+    };
 
     $scope.bidLight = function() {
         if ($scope.pairedLight) {
