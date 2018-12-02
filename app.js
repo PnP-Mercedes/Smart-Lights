@@ -51,7 +51,7 @@ app.get('/getCode', function(req, res) {
 app.get('/getLocation', function(req, res) {
     var responseString = "";
     var locReq = http.request({        
-        hostname: 'api.mercedes-benz.com',
+        hostname: 'https://api.mercedes-benz.com',
         port: 443,
         path: '/experimental/connectedvehicle/v1/vehicles/65E345ACD47C75AC45/location',
         method: 'POST',

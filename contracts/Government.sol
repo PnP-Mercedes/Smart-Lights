@@ -1,6 +1,8 @@
+pragma solidity >=0.4.22 <0.6.0;
+
 contract Government {
     address private authority;
-    mapping (address => uint8) public urgentVehicleList;
+    mapping (address => uint) public urgentVehicleList;
     address[] public lightList;
     
     constructor () public {
