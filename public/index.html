@@ -25,7 +25,7 @@
         <div class="form-group col-md-offset-1 col-md-8 row">
             <label for="mode" class="col-form-label col-md-2">Mode:</label>
             <div class="col-md-10">
-                <select id="mode" ng-model="mode" class="form-control">
+                <select id="mode" ng-model="mode" class="form-control" onchange="optionChange()">
                     <option value="0">Money is Better Mode (1)</option>
                     <option value="1">Minimum Urgency Mode (2)</option>
                     <option value="2">Rather not Wait Mode (3)</option>
@@ -54,6 +54,44 @@
     <script src="/assets/js/web3.min.js"></script>
     <script src="/assets/js/angular.min.js"></script>
     <script src="/app/controllers/home.controller.js"></script>
+
+    <script type="text/javascript">
+        
+        function optionChange(argument) {
+            var modeValue = document.getElementById("mode").value;
+            var dollar = document.getElementById('dollar-amount');
+            var estimateText = document.getElementById('estimate-text');
+            switch(Number(modeValue)) {
+                case 0: 
+                    dollar.innerHTML = '$1.04'
+                    dollar.className = "dollar-positive"
+                    estimateText.innerHTML = 'Estimated Earn Per Light'
+                    break
+                case 1: 
+                    dollar.innerHTML = '$1.18'
+                    dollar.className = "dollar-negative"
+                    estimateText.innerHTML = 'Estimated Spend Per Light'
+                    break
+                case 2: 
+                    dollar.innerHTML = '$4.21'
+                    dollar.className = "dollar-negative"
+                    estimateText.innerHTML = 'Estimated Spend Per Light'
+                    break
+                case 3: 
+                    dollar.innerHTML = '$10.81'
+                    dollar.className = "dollar-negative"
+                    estimateText.innerHTML = 'Estimated Spend Per Light'
+                    break
+                case 4: 
+                    dollar.innerHTML = '$76.16'
+                    dollar.className = "dollar-negative"
+                    estimateText.innerHTML = 'Estimated Spend Per Light'
+                    break
+            } 
+        }
+
+    </script>
+
 </body>
 
 </html>
