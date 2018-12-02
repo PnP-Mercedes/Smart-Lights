@@ -6,6 +6,7 @@ app.controller('homeController', function($scope, $http, $interval) {
     $scope.mode = "0";
     $scope.pairedLight = null;
     $scope.available = typeof web3 !== 'undefined';
+    $scope.account = null;
 
     var getLightLocation = function(trlContract) {
         trlContract.location(function(error, result) {
@@ -69,26 +70,35 @@ app.controller('homeController', function($scope, $http, $interval) {
         $scope.pairedLight = nearLight;
     };
 
+    var account_locations = {
+        "0x08206ddbe36e1ac88f76425e15267d8b881e36db":
+        { 
+            "longitude": { "value": 13.381815, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "latitude": { "value": 52.516506, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "heading": { "value": 52.520008, "retrievalstatus": "VALID", "timestamp": 1543715406 }
+        },
+        "0x00a6bde8fc7db03f78a8f405bf466ab8e2211375":
+        { 
+            "longitude": { "value": 15.381815, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "latitude": { "value": 52.516506, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "heading": { "value": 52.520008, "retrievalstatus": "VALID", "timestamp": 1543715406 }
+        },
+        "0x6b70658b2d554eabb4911af6a87b0da6037068c1":
+        { 
+            "longitude": { "value": 14.181815, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "latitude": { "value": 49.516506, "retrievalstatus": "VALID", "timestamp": 1543715406 },
+            "heading": { "value": 52.520008, "retrievalstatus": "VALID", "timestamp": 1543715406 }
+        },
+    };
+    
     var getLocation = function(next) {
-        let location = {
-            "longitude": {
-                "value": 13.381815,
-                "retrievalstatus": "VALID",
-                "timestamp": 1543715406
-            },
-            "latitude": {
-                "value": 52.516506,
-                "retrievalstatus": "VALID",
-                "timestamp": 1543715406
-            },
-            "heading": {
-                "value": 52.520008,
-                "retrievalstatus": "VALID",
-                "timestamp": 1543715406
-            }
-        };
-        $scope.location = [location.longitude.value, location.latitude.value];
-        next($scope.location);
+        if ($scope.account != null) {
+            let location = account_locations[$scope.account];
+            $scope.location = [location.longitude.value, location.latitude.value];
+            next($scope.location);
+        } else {
+            console.log("Account not found");
+        }
         //$http.get('/getLocation', {}).then(function(location) {
         //    console.log(location);
         //    $scope.location = [location.data.longitude.value, location.data.latitude.value];
@@ -102,10 +112,23 @@ app.controller('homeController', function($scope, $http, $interval) {
         getLocation(getNearestLight);
     };
 
+    modeAmounts = {
+        "0": 0,
+        "1": 0.01,
+        "2": 0.03,
+        "3": 0.09,
+        "4": 0.65
+    }
+
     $scope.bidLight = function() {
         if ($scope.pairedLight) {
             let lightContract = web3.eth.contract($scope.abis.trafficlight).at($scope.pairedLight);
-            lightContract.bid($scope.mode, function(error, result) {
+            lightContract.bid.sendTransaction($scope.mode, {
+                from: $scope.account,
+                gas: 2000000,
+                value: modeAmounts[$scope.mode]*10000000000000000,
+                gasPrice: 10000000000
+              }, function(error, result) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -113,15 +136,27 @@ app.controller('homeController', function($scope, $http, $interval) {
                 }
             });
         } else {
-            alert("NO");
+            alert("Bidding is unavailable");
         }
     };
 
-    $interval(pairWithLight, 200);
-
+    var getAccount = function() {
+        $scope.account = web3.eth.accounts[0];
+        web3.eth.getBalance($scope.account, function(error, result) {
+            if (error) {
+                console.log(error);
+            } else {
+                $scope.balance = result*117/10000000000000000;
+                $scope.$apply();
+            }
+        });
+    };
+    
     if ($scope.available) {
         web3 = new Web3(web3.currentProvider);
         getContract();
+        $interval(getAccount, 100);
+        $interval(pairWithLight, 200);
     } else {
         console.log('You should consider installing MetaMask or using a Web3 browser!');
     }
