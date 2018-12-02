@@ -17,7 +17,7 @@ contract TrafficLight {
     address public partnerLight;
     Location public location;
     address[] public bidderList;
-    mapping (address => Bid) private bidList;
+    mapping (address => Bid) public bidList;
 
     constructor (string _latitude, string _longitude) public {
         owner = msg.sender;
