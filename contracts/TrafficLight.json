@@ -1,11 +1,25 @@
 {
     "abi": [
         {
+            "constant": true,
+            "inputs": [],
+            "name": "status",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "constant": false,
             "inputs": [
                 {
                     "name": "_mode",
-                    "type": "uint8"
+                    "type": "uint256"
                 }
             ],
             "name": "bid",
@@ -15,37 +29,13 @@
             "type": "function"
         },
         {
-            "inputs": [
-                {
-                    "name": "_latitude",
-                    "type": "string"
-                },
-                {
-                    "name": "_longitude",
-                    "type": "string"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-        },
-        {
             "constant": true,
-            "inputs": [
+            "inputs": [],
+            "name": "getStatus",
+            "outputs": [
                 {
                     "name": "",
                     "type": "uint256"
-                }
-            ],
-            "name": "incomingBids",
-            "outputs": [
-                {
-                    "name": "bidder",
-                    "type": "address"
-                },
-                {
-                    "name": "mode",
-                    "type": "uint8"
                 }
             ],
             "payable": false,
@@ -73,16 +63,115 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "status",
+            "name": "partnerLight",
             "outputs": [
                 {
                     "name": "",
-                    "type": "uint8"
+                    "type": "address"
                 }
             ],
             "payable": false,
             "stateMutability": "view",
             "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "scoreBidders",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getBidderList",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_partnerAddr",
+                    "type": "address"
+                }
+            ],
+            "name": "changePartnerLight",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "bidderList",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_status",
+                    "type": "uint256"
+                }
+            ],
+            "name": "changeStatus",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "controlBidders",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "name": "_latitude",
+                    "type": "string"
+                },
+                {
+                    "name": "_longitude",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
         }
     ]
 }

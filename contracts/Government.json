@@ -1,5 +1,5 @@
 {
-    "address": "0x5972625d6dec4e4773d756818ee69fcfda1f4462",
+    "address": "0xca14a769fdc0c196630cf43c8eaa1bdcd4fabb55",
     "abi": [
         {
             "constant": false,
@@ -66,7 +66,7 @@
             "outputs": [
                 {
                     "name": "",
-                    "type": "uint8"
+                    "type": "uint256"
                 }
             ],
             "payable": false,
