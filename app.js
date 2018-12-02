@@ -4,9 +4,12 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 require('dotenv').config();
 
-var contract = {
+var govContract = {
     abi: undefined,
     addr: undefined
+};
+var trlContract = {
+    abi: undefined
 };
 
 fs.readFile('./contracts/Government.json', 'utf8', function(err, data) {
@@ -14,8 +17,16 @@ fs.readFile('./contracts/Government.json', 'utf8', function(err, data) {
         throw err;
     }
     let contractObject = JSON.parse(data);
-    contract.abi = contractObject.abi;
-    contract.addr = contractObject.address;
+    govContract.abi = contractObject.abi;
+    govContract.addr = contractObject.address;
+});
+
+fs.readFile('./contracts/TrafficLight.json', 'utf8', function(err, data) {
+    if (err) {
+        throw err;
+    }
+    let contractObject = JSON.parse(data);
+    trlContract.abi = contractObject.abi;
 });
 
 var app = express();
@@ -25,8 +36,11 @@ app.use(cookieParser());
 
 app.use(express.static(__dirname + "/public"));
 
-app.get('/contract', function(req, res) {
-    return res.json(contract);
+app.get('/contracts', function(req, res) {
+    return res.json({
+        'government': govContract,
+        'trafficlight': trlContract,
+    });
 });
 
 app.get('/getCode', function(req, res) {

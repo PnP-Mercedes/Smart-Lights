@@ -2,8 +2,8 @@ pragma solidity >=0.4.22 <0.6.0;
 
 contract TrafficLight {
     struct Location {
-        uint32 latitude;
-        uint32 longitude;
+        string latitude;
+        string longitude;
     }
 
     struct Bid {
@@ -17,7 +17,7 @@ contract TrafficLight {
     Location public location;
     Bid[] public incomingBids;
 
-    constructor (uint32 _latitude, uint32 _longitude) public {
+    constructor (string _latitude, string _longitude) public {
         owner = msg.sender;
         location = Location({
             latitude: _latitude,

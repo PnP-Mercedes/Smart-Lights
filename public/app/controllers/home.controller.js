@@ -1,26 +1,39 @@
 var app = angular.module("smartlight", []);
 
 app.controller('homeController', function($scope, $http) {
-    $scope.getNetworkName = function() {
-        if ($scope.networkId == 1) return 'Main metwork';
-        else if ($scope.networkId == 2) return 'deprecated Morden test network';
-        else if ($scope.networkId == 3) return 'Ropsten test network';
-        else if ($scope.networkId == 4) return 'Rinkeby test network';
-        else if ($scope.networkId == 42) return 'Kovan test network';
-        else return 'Local network';
+    $scope.lightList = [];
+    $scope.mode = "0";
+    $scope.available = typeof web3 !== 'undefined';
+
+    $scope.getLightLocation = function(trlContract) {
+        trlContract.location(function(error, result) {
+            if (error) {
+                console.log(error);
+            } else {
+                $scope.lightList.push(result[0] + " " + result[1]);
+                $scope.$apply();
+            }
+        });
     };
 
+    $scope.getLights = function(contracts, govContract) {
+        govContract.getLights(function(error, result) {
+            if (error) {
+                console.log(error);
+            } else {
+                for (let addr of result) {
+                    let trlContract = web3.eth.contract(contracts.data.trafficlight.abi).at(addr);
+                    $scope.getLightLocation(trlContract);
+                }
+            }
+        });
+    }
+    
     $scope.getContract = function() {
-        $http.get('/contract', {}).then(function(contract) {
-            if (contract) {
-                $scope.contract = web3.eth.contract(contract.data.abi).at(contract.data.addr);
-                $scope.contract.getLights(function(error, result) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        $scope.lightList = result;
-                    }
-                });
+        $http.get('/contracts', {}).then(function(contracts) {
+            if (contracts) {
+                $scope.govContract = web3.eth.contract(contracts.data.government.abi).at(contracts.data.government.addr);
+                $scope.getLights(contracts, $scope.govContract);
             } else {
                 $scope.available = false;
             }
@@ -34,8 +47,6 @@ app.controller('homeController', function($scope, $http) {
         console.log($scope.mode);
     };
 
-    $scope.mode = "0";
-    $scope.available = typeof web3 !== 'undefined';
     if ($scope.available) {
         web3 = new Web3(web3.currentProvider);
         $scope.getContract();

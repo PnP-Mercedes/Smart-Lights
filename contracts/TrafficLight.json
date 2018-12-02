@@ -1,20 +1,6 @@
 {
     "abi": [
         {
-            "constant": true,
-            "inputs": [],
-            "name": "status",
-            "outputs": [
-                {
-                    "name": "",
-                    "type": "uint8"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
             "constant": false,
             "inputs": [
                 {
@@ -29,22 +15,19 @@
             "type": "function"
         },
         {
-            "constant": true,
-            "inputs": [],
-            "name": "location",
-            "outputs": [
+            "inputs": [
                 {
-                    "name": "latitude",
-                    "type": "uint32"
+                    "name": "_latitude",
+                    "type": "string"
                 },
                 {
-                    "name": "longitude",
-                    "type": "uint32"
+                    "name": "_longitude",
+                    "type": "string"
                 }
             ],
             "payable": false,
-            "stateMutability": "view",
-            "type": "function"
+            "stateMutability": "nonpayable",
+            "type": "constructor"
         },
         {
             "constant": true,
@@ -70,19 +53,36 @@
             "type": "function"
         },
         {
-            "inputs": [
+            "constant": true,
+            "inputs": [],
+            "name": "location",
+            "outputs": [
                 {
-                    "name": "_latitude",
-                    "type": "uint32"
+                    "name": "latitude",
+                    "type": "string"
                 },
                 {
-                    "name": "_longitude",
-                    "type": "uint32"
+                    "name": "longitude",
+                    "type": "string"
                 }
             ],
             "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "status",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint8"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
         }
     ]
 }
