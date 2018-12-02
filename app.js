@@ -2,6 +2,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
+var http = require('http');
 require('dotenv').config();
 
 var govContract = {
@@ -44,9 +45,30 @@ app.get('/contracts', function(req, res) {
 });
 
 app.get('/getCode', function(req, res) {
-    console.log(req.body);
-    console.log(req.body.code);
-    return "YOHO";
+    return req.body.code;
+});
+
+app.get('/getLocation', function(req, res) {
+    var responseString = "";
+    var locReq = http.request({        
+        hostname: 'api.mercedes-benz.com',
+        port: 443,
+        path: '/experimental/connectedvehicle/v1/vehicles/65E345ACD47C75AC45/location',
+        method: 'POST',
+        headers: {
+            "accept": "application/json",
+            "Authorization": "Bearer 0b6fb484-7fd9-4b6a-8a5e-22a94d919b6b"          
+       }
+    }, function (locRes) {
+        locRes.on("data", function (data) {
+            responseString += data;
+        });
+        locRes.on("end", function () {
+            console.log(responseString); 
+        });
+    });
+
+    return responseString;
 });
 
 var server = app.listen(process.env.PORT | 9000, function() {
