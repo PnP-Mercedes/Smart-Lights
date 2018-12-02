@@ -7,14 +7,14 @@ html, body {
 }
 
 .dollar-positive {
-    font-size: 12em;
+    font-size: 8em;
     margin: auto;
     margin-top: 0px;
     color: green
 }
 
 .dollar-negative {
-    font-size: 12em;
+    font-size: 8em;
     margin: auto;
     margin-top: 0px;
     color: red
